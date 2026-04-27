@@ -1,0 +1,26 @@
+{
+  "request_label": "climate-monitoring",
+  "filters": {
+    "keywords": ["climate change", "global warming"],
+    "entities": ["European Union", "United Nations"],
+    "source_countries": ["germany", "france"],
+    "source_languages": ["english", "german"],
+    "exclude_terms": ["sports"],
+    "match_mode": "any"
+  },
+  "date_range": {
+    "start": "2026-04-15T00:00:00Z",
+    "end": "2026-04-16T23:59:59Z"
+  },
+  "max_records": 100,
+  "sort": "DateDesc",
+  "bucket_size": "hour",
+  "batch_window_hours": 12,
+  "deduplicate": true,
+  "validate_schema": true,
+  "scrape_articles": true,
+  "scrape_limit": 10,
+  "scrape_timeout": 15,
+  "include_timeline": true,
+  "include_tone_timeline": true
+}

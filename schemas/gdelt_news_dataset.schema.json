@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/gdelt_news_dataset.schema.json",
+  "title": "GDELT News Dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request", "articles", "analytics", "diagnostics"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "generated_at",
+        "query",
+        "filters",
+        "date_range",
+        "max_records",
+        "sort",
+        "bucket_size",
+        "batch_window_hours",
+        "deduplicate",
+        "validate_schema",
+        "scrape_articles",
+        "scrape_limit",
+        "scrape_timeout",
+        "article_params",
+        "timeline_params",
+        "tone_params"
+      ],
+      "properties": {
+        "source": { "type": "string" },
+        "base_url": { "type": ["string", "null"] },
+        "generated_at": { "type": "string" },
+        "request_label": { "type": ["string", "null"] },
+        "query": { "type": "string" },
+        "filters": { "type": "object" },
+        "date_range": { "type": "object" },
+        "max_records": { "type": "integer" },
+        "sort": { "type": "string" },
+        "bucket_size": { "type": "string" },
+        "batch_window_hours": { "type": ["integer", "null"] },
+        "deduplicate": { "type": "boolean" },
+        "validate_schema": { "type": "boolean" },
+        "scrape_articles": { "type": "boolean" },
+        "scrape_limit": { "type": ["integer", "null"] },
+        "scrape_timeout": { "type": "integer" },
+        "article_params": { "type": ["object", "null"] },
+        "timeline_params": { "type": ["object", "null"] },
+        "tone_params": { "type": ["object", "null"] }
+      }
+    },
+    "articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "article_id",
+          "title",
+          "url",
+          "mobile_url",
+          "seen_at",
+          "domain",
+          "language",
+          "source_country",
+          "social_image_url",
+          "matched_keywords",
+          "matched_entities",
+          "requested_themes",
+          "scrape_status",
+          "scrape_success",
+          "scrape_error",
+          "scraped_title",
+          "scraped_description",
+          "scraped_published_at",
+          "scraped_language",
+          "scraped_final_url",
+          "scraped_excerpt",
+          "scraped_text",
+          "scraped_text_length",
+          "raw"
+        ],
+        "properties": {
+          "article_id": { "type": ["string", "null"] },
+          "title": { "type": ["string", "null"] },
+          "url": { "type": ["string", "null"] },
+          "mobile_url": { "type": ["string", "null"] },
+          "seen_at": { "type": ["string", "null"] },
+          "domain": { "type": ["string", "null"] },
+          "language": { "type": ["string", "null"] },
+          "source_country": { "type": ["string", "null"] },
+          "social_image_url": { "type": ["string", "null"] },
+          "matched_keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "matched_entities": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "requested_themes": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "scrape_status": { "type": "string" },
+          "scrape_success": { "type": "boolean" },
+          "scrape_error": { "type": ["string", "null"] },
+          "scraped_title": { "type": ["string", "null"] },
+          "scraped_description": { "type": ["string", "null"] },
+          "scraped_published_at": { "type": ["string", "null"] },
+          "scraped_language": { "type": ["string", "null"] },
+          "scraped_final_url": { "type": ["string", "null"] },
+          "scraped_excerpt": { "type": ["string", "null"] },
+          "scraped_text": { "type": ["string", "null"] },
+          "scraped_text_length": { "type": "integer" },
+          "raw": { "type": "object" }
+        }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["analysis_targets", "trend_series", "sentiment_series", "entity_tracking", "summary"],
+      "properties": {
+        "analysis_targets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["trend_metric", "sentiment_metric", "tracked_entities", "bucket_size"],
+          "properties": {
+            "trend_metric": { "type": "string", "enum": ["article_count"] },
+            "sentiment_metric": { "type": "string", "enum": ["average_tone"] },
+            "tracked_entities": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "bucket_size": { "type": "string" }
+          }
+        },
+        "trend_series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["bucket_start", "value", "metric", "norm", "label"],
+            "properties": {
+              "bucket_start": { "type": "string" },
+              "value": { "type": "number" },
+              "metric": { "type": "string", "enum": ["article_count"] },
+              "norm": { "type": ["number", "null"] },
+              "label": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "sentiment_series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["bucket_start", "value", "metric", "norm", "label"],
+            "properties": {
+              "bucket_start": { "type": "string" },
+              "value": { "type": "number" },
+              "metric": { "type": "string", "enum": ["average_tone"] },
+              "norm": { "type": ["number", "null"] },
+              "label": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "entity_tracking": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["bucket_start", "entity", "article_count"],
+            "properties": {
+              "bucket_start": { "type": "string" },
+              "entity": { "type": "string" },
+              "article_count": { "type": "integer" }
+            }
+          }
+        },
+        "summary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "article_count",
+            "raw_article_count",
+            "duplicates_removed",
+            "scraped_article_count",
+            "scrape_failed_count",
+            "languages",
+            "source_countries",
+            "domains",
+            "matched_entities"
+          ],
+          "properties": {
+            "article_count": { "type": "integer" },
+            "raw_article_count": { "type": "integer" },
+            "duplicates_removed": { "type": "integer" },
+            "scraped_article_count": { "type": "integer" },
+            "scrape_failed_count": { "type": "integer" },
+            "languages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value", "count"],
+                "properties": {
+                  "value": { "type": "string" },
+                  "count": { "type": "integer" }
+                }
+              }
+            },
+            "source_countries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value", "count"],
+                "properties": {
+                  "value": { "type": "string" },
+                  "count": { "type": "integer" }
+                }
+              }
+            },
+            "domains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value", "count"],
+                "properties": {
+                  "value": { "type": "string" },
+                  "count": { "type": "integer" }
+                }
+              }
+            },
+            "matched_entities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value", "count"],
+                "properties": {
+                  "value": { "type": "string" },
+                  "count": { "type": "integer" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trend_source", "sentiment_source", "warnings", "article_fetch", "scraping"],
+      "properties": {
+        "trend_source": { "type": "string" },
+        "sentiment_source": { "type": "string" },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "article_fetch": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "batching_enabled",
+            "batch_window_hours",
+            "batch_count",
+            "fetch_attempt_count",
+            "split_window_count",
+            "raw_article_count",
+            "deduplicated_article_count",
+            "duplicates_removed",
+            "truncated_window_count",
+            "windows"
+          ],
+          "properties": {
+            "batching_enabled": { "type": "boolean" },
+            "batch_window_hours": { "type": ["integer", "null"] },
+            "batch_count": { "type": "integer" },
+            "fetch_attempt_count": { "type": "integer" },
+            "split_window_count": { "type": "integer" },
+            "raw_article_count": { "type": "integer" },
+            "deduplicated_article_count": { "type": "integer" },
+            "duplicates_removed": { "type": "integer" },
+            "truncated_window_count": { "type": "integer" },
+            "windows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "index",
+                  "start",
+                  "end",
+                  "timespan",
+                  "returned_articles",
+                  "truncated",
+                  "split_depth",
+                  "adaptive_split"
+                ],
+                "properties": {
+                  "index": { "type": "integer" },
+                  "start": { "type": ["string", "null"] },
+                  "end": { "type": ["string", "null"] },
+                  "timespan": { "type": ["string", "null"] },
+                  "returned_articles": { "type": "integer" },
+                  "truncated": { "type": "boolean" },
+                  "split_depth": { "type": "integer" },
+                  "adaptive_split": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "schema_validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["validated", "schema_path"],
+          "properties": {
+            "validated": { "type": "boolean" },
+            "schema_path": { "type": ["string", "null"] }
+          }
+        },
+        "scraping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requested",
+            "attempted",
+            "succeeded",
+            "failed",
+            "skipped",
+            "limit",
+            "timeout",
+            "errors"
+          ],
+          "properties": {
+            "requested": { "type": "boolean" },
+            "attempted": { "type": "integer" },
+            "succeeded": { "type": "integer" },
+            "failed": { "type": "integer" },
+            "skipped": { "type": "integer" },
+            "limit": { "type": ["integer", "null"] },
+            "timeout": { "type": "integer" },
+            "errors": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
