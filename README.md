@@ -1,6 +1,8 @@
 # GDELT News Module
 
-Ein leichtgewichtiges Python-Modul, das die GDELT DOC 2.0 API als primaere Quelle fuer globale Nachrichtenberichterstattung nutzt und die Ergebnisse in ein konsistentes, nachgelagert nutzbares Format ueberfuehrt.
+Ein leichtgewichtiges Python-Modul, das die GDELT DOC 2.0 API als primaere Quelle
+fuer globale Nachrichtenberichterstattung nutzt und die Ergebnisse in ein konsistentes,
+nachgelagert nutzbares Format ueberfuehrt.
 
 ## Was das Modul abdeckt
 
@@ -38,6 +40,22 @@ PYTHONPATH=src python3 -m gdelt_news --help
 
 ## Schnellstart
 
+Minimaler Testlauf ohne Scraping und ohne Timeline-Zusatzabfragen:
+
+```bash
+gdelt-news \
+  --label "quick-test" \
+  --keyword "climate change" \
+  --source-country germany \
+  --start 2026-04-14T00:00:00Z \
+  --end 2026-04-16T23:59:59Z \
+  --no-timeline \
+  --no-tone-timeline \
+  --output data/quick_test.json \
+  --csv-output data/quick_test.csv \
+  --ca-bundle "$(python3 -m certifi)"
+```
+
 Mit einer JSON-Konfiguration:
 
 ```bash
@@ -52,15 +70,15 @@ Direkt ueber CLI-Parameter ohne JSON-Datei:
 
 ```bash
 gdelt-news \
-  --label "label for json" \
-  --keyword "keyword1" \
-  --keyword "keyword2" \
-  --entity "entity1" \
-  --entity "enitity2" \
-  --source-country opt1 \
-  --source-country opt2 \
-  --source-language lang1 \
-  --source-language lang2 \
+  --label "eu-climate-monitoring" \
+  --keyword "climate change" \
+  --keyword "renewable energy" \
+  --entity "European Union" \
+  --entity "United Nations" \
+  --source-country germany \
+  --source-country france \
+  --source-language english \
+  --source-language german \
   --start 2026-04-16T00:00:00Z \
   --end 2026-04-16T23:59:59Z \
   --match-mode any \
@@ -70,8 +88,8 @@ gdelt-news \
   --scrape-articles \
   --scrape-limit 10 \
   --scrape-timeout 15 \
-  --output data/title.json \
-  --csv-output data/title.csv \
+  --output data/eu_climate.json \
+  --csv-output data/eu_climate.csv \
   --ca-bundle "$(python3 -m certifi)"
 ```
 
@@ -143,7 +161,7 @@ Typische Rueckfragen dabei:
 | `--phrase "..."` | Exakte Phrase. | `--phrase "Green Deal"` |
 | `--entity "..."` | Person, Organisation oder Institution, die vorkommen soll. | `--entity "European Union"` |
 | `--theme "..."` | GDELT-Theme-Code. | `--theme ENV_CLIMATECHANGE` |
-| `--exclude "..."` | Schliest Treffer mit diesem Begriff aus. | `--exclude sports` |
+| `--exclude "..."` | Schliesst Treffer mit diesem Begriff aus. | `--exclude sports` |
 | `--domain "..."` | Begrenzt Treffer auf eine Domain-Gruppe. | `--domain reuters.com` |
 | `--exact-domain "..."` | Begrenzt Treffer auf genau diese Domain. | `--exact-domain www.reuters.com` |
 | `--raw-fragment "..."` | Eigener GDELT-Query-Teil fuer Spezialfaelle. | Fuer fortgeschrittene GDELT-Queries |
